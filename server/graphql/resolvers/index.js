@@ -1,4 +1,4 @@
-import usersResolvers from "./users.js";
+import roomResolvers from "./users.js";
 import customScalars from "./customScalars.js";
 
 export default {
