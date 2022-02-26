@@ -42,11 +42,11 @@ export default function MainPage() {
         }}
       />
       <div style={{
-        transform: `translate3d(0, ${-index * 200}px, 0)`,
+        transform: `translate3d(0, ${-index * 200 + 200}px, 0)`,
         transition: 'ease 200ms',
       }}>
-        {roads.map((_, index) => {
-          return (<VerticalTile />)
+        {roads.map((_, i) => {
+          return (<VerticalTile isActive={index === i} />)
         })}
       </div>
     </div>
