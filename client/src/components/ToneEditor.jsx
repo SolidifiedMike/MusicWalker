@@ -1,15 +1,12 @@
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import Slide from '@mui/material/Slide';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
-import { forwardRef } from 'react';
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
+import { forwardRef } from "react";
+import * as Tone from "tone";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -21,6 +18,17 @@ export default function Tile({
   editTileTone,
   index,
 }) {
+  const noteList = [
+    { color: "purple", note: "B4" },
+    { color: "blue", note: "A4" },
+    { color: "lime", note: "G4" },
+    { color: "green", note: "F4" },
+    { color: "yellow", note: "E4" },
+    { color: "orange", note: "D4" },
+    { color: "red", note: "C4" },
+    { color: "grey", note: "1m" },
+  ];
+  const synth = new Tone.MembraneSynth().toDestination();
   return (
     <Dialog
       open={openToneEditor}
@@ -29,41 +37,35 @@ export default function Tile({
       onClose={handleCloseToneEditor}
       aria-describedby="alert-dialog-slide-description"
     >
-      <DialogTitle>{'Choose a tone you like'}</DialogTitle>
+      <DialogTitle>{"Choose a tone you like"}</DialogTitle>
       <DialogContent>
-        <FormControl>
-          <FormLabel id="demo-radio-buttons-group-label">Tone</FormLabel>
-          <RadioGroup
-            aria-labelledby="demo-radio-buttons-group-label"
-            defaultValue="white"
-            name="radio-buttons-group"
-          >
-            <FormControlLabel
-              value="white"
-              control={<Radio />}
-              label="white"
-              onClick={() => {
-                editTileTone(index, 'white');
-              }}
-            />
-            <FormControlLabel
-              value="red"
-              control={<Radio />}
-              label="red"
-              onClick={() => {
-                editTileTone(index, 'red');
-              }}
-            />
-            <FormControlLabel
-              value="orange"
-              control={<Radio />}
-              label="orange"
-              onClick={() => {
-                editTileTone(index, 'orange');
-              }}
-            />
-          </RadioGroup>
-        </FormControl>
+        <ButtonGroup
+          orientation="vertical"
+          aria-label="vertical outlined button group"
+          style={{ width: "100%" }}
+        >
+          {noteList.map((note) => {
+            return (
+              <Button
+                value={note.color}
+                label={note.color}
+                onClick={() => {
+                  editTileTone(index, note.color);
+                  if (note.color !== "grey") {
+                    synth.triggerAttackRelease(note.note, "16n");
+                  }
+                }}
+                style={{
+                  height: "35px",
+                  width: "100%",
+                  flexShrink: "0",
+                  backgroundColor: note.color,
+                  border: "none",
+                }}
+              ></Button>
+            );
+          })}
+        </ButtonGroup>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleCloseToneEditor}>Close</Button>
