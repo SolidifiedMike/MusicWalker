@@ -1,6 +1,6 @@
-import logo from './logo.svg';
-import './App.css';
-import MusicPage from './pages/MusicPage';
+import logo from "./logo.svg";
+import "./App.css";
+import MusicPage from "./pages/MusicPage";
 
 function App() {
   return (
