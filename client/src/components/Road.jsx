@@ -6,7 +6,7 @@ import ToneEditor from '../components/ToneEditor';
 import useKeyPress from '../hooks/useKeyPress';
 import useWindowDimensions from '../hooks/useWindowDimensions';
 
-export default function Road({ roadConfig, setRoadConfig }) {
+export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
   const roadLen = roadConfig.length;
   const { height, width } = useWindowDimensions();
 
@@ -83,6 +83,32 @@ export default function Road({ roadConfig, setRoadConfig }) {
             </div>
           ))}
         </div>
+        <br />
+        {existedRoad.map((existedRoad) => (
+          <div key={existedRoad['author']}>
+            <div style={{ marginLeft: width / 2 - 100 }}>
+              {existedRoad['author']}
+            </div>
+            <div
+              style={{
+                transform: `translate3d(${-index * 100}px, 0, 0)`,
+                transition: 'ease 200ms',
+                marginLeft: width / 2 - 100,
+              }}
+            >
+              {existedRoad['road'].map((_, index) => (
+                <div
+                  key={existedRoad['author'] + String(index)}
+                  style={{
+                    display: 'inline-block',
+                  }}
+                >
+                  <Tile tileInfo={existedRoad['road'][index]} />
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
       <ToneEditor
         openToneEditor={openToneEditor}

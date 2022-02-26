@@ -6,6 +6,58 @@ import { useState } from 'react';
 export default function MusicPage() {
   const { height, width } = useWindowDimensions();
 
+  // MockData
+  const existedRoad = [
+    {
+      author: 'Mike',
+      road: [
+        { color: 'grey' },
+        { color: 'grey' },
+        { color: 'grey' },
+        { color: 'grey' },
+        { color: 'Red' },
+        { color: 'grey' },
+        { color: 'grey' },
+        { color: 'Red' },
+        { color: 'grey' },
+        { color: 'grey' },
+        { color: 'grey' },
+        { color: 'grey' },
+        { color: 'Red' },
+        { color: 'grey' },
+        { color: 'grey' },
+        { color: 'grey' },
+        { color: 'grey' },
+        { color: 'grey' },
+        { color: 'Red' },
+      ],
+    },
+    {
+      author: 'Ray',
+      road: [
+        { color: 'grey' },
+        { color: 'Red' },
+        { color: 'grey' },
+        { color: 'grey' },
+        { color: 'grey' },
+        { color: 'grey' },
+        { color: 'grey' },
+        { color: 'grey' },
+        { color: 'grey' },
+        { color: 'grey' },
+        { color: 'grey' },
+        { color: 'Red' },
+        { color: 'grey' },
+        { color: 'grey' },
+        { color: 'grey' },
+        { color: 'grey' },
+        { color: 'grey' },
+        { color: 'orange' },
+        { color: 'grey' },
+      ],
+    },
+  ];
+
   const roadConfigDefault = [
     { color: 'white' },
     { color: 'white' },
@@ -35,7 +87,11 @@ export default function MusicPage() {
           marginTop: height / 4,
         }}
       >
-        <Road roadConfig={roadConfig} setRoadConfig={setRoadConfig} />
+        <Road
+          roadConfig={roadConfig}
+          setRoadConfig={setRoadConfig}
+          existedRoad={existedRoad}
+        />
       </div>
     </div>
   );
