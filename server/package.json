@@ -8,17 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/daka3/Backend.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/daka3/Backend/issues"
-  },
-  "homepage": "https://github.com/daka3/Backend#readme",
   "dependencies": {
     "apollo-server": "^3.5.0",
     "graphql": "^16.0.1",
