@@ -57,9 +57,7 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
     }
 
     if (myKey === "Enter") {
-      if (openToneEditor) {
-        handleCloseToneEditor();
-      } else {
+      if (!openToneEditor) {
         handleOpenToneEditor();
       }
       e.preventDefault();
