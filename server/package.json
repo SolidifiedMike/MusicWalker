@@ -1,5 +1,5 @@
 {
-  "name": "Backend",
+  "name": "server",
   "type": "module",
   "version": "1.0.0",
   "description": "",
@@ -12,11 +12,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "apollo-server": "^3.5.0",
-    "graphql": "^16.0.1",
-    "mongoose": "^6.0.13"
-  },
-  "devDependencies": {
+    "apollo-server": "^3.6.3",
+    "dotenv": "^16.0.0",
+    "graphql": "^16.3.0",
+    "mongoose": "^6.2.3",
     "nodemon": "^2.0.15"
   }
 }

@@ -1,16 +1,26 @@
 import { ApolloServer } from "apollo-server";
-import resolvers from "./graphql/resolvers/index.js";
+import resolvers from "./graphql/resolvers.js";
 import typeDefs from "./graphql/typeDefs.js";
-import mongoose from 'mongoose';
-import { MONGODB } from "./config.js";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 
-const server = new ApolloServer({ typeDefs, resolvers, context: ({ req, res }) => res }); // result in context for debug purpose
+dotenv.config();
+const PORT = process.env.PORT || 4000;
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: ({ req, res }) => res,
+}); // result in context for debug purpose
 
-mongoose.connect(MONGODB, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose
+  .connect(process.env.MONGODB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log("MongoDB Connected");
-    return server.listen();
+    return server.listen({ port: PORT });
   })
-  .then(res => {
+  .then((res) => {
     console.log(`Server running at ${res.url}`);
-  })
+  });
