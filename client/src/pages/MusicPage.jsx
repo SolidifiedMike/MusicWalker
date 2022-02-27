@@ -8,7 +8,7 @@ export default function MusicPage() {
     {
       author: "Mike",
       road: [
-        { color: "white", note: "" },
+        { color: "grey", note: "" },
         { color: "#adff2f", note: "B4" },
         { color: "#78acff", note: "F4" },
         { color: "white", note: "" },
@@ -32,7 +32,7 @@ export default function MusicPage() {
     {
       author: "Ray",
       road: [
-        { color: "white", note: "" },
+        { color: "grey", note: "" },
         { color: "#adff2f", note: "B4" },
         { color: "white", note: "" },
         { color: "white", note: "" },
@@ -56,7 +56,7 @@ export default function MusicPage() {
   ];
 
   const roadConfigDefault = [
-    { color: "white", note: "" },
+    { color: "grey", note: "" },
     { color: "white", note: "" },
     { color: "white", note: "" },
     { color: "white", note: "" },

@@ -42,7 +42,7 @@ export default function Tile({
       setCurrNote(Math.min(currNote + 1, noteList.length - 1));
       e.preventDefault();
     }
-    if (myKey === "Enter") {
+    if (myKey === "Enter" && index != 0) {
       editTileTone(index, noteList[currNote].color, noteList[currNote].note);
       if (noteList[currNote].color !== "grey") {
         sampler1.triggerAttackRelease(noteList[currNote].note, "16n");
