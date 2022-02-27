@@ -1,21 +1,28 @@
 {
-  "name": "server",
-  "type": "module",
+  "name": "mp3_starter_19",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "MP3 Starter for CS498RK Spring 2019",
+  "authors": [
+    "James Lee <jwlee11@illinois.edu>",
+    "Sujay Khandekar <khandek2@illinois.edu>"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index"
+    "start": "nodemon --exec node server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "babel": {
+    "presets": [
+      "env",
+      "react"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uiuc-web-programming/mp3_starter_17.git"
+  },
   "dependencies": {
-    "apollo-server": "^3.6.3",
-    "dotenv": "^16.0.0",
-    "graphql": "^16.3.0",
-    "mongoose": "^6.2.3",
-    "nodemon": "^2.0.15"
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "mongoose": "^5.4.18",
+    "nodemon": "^1.11.0"
   }
 }
