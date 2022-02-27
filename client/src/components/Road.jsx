@@ -7,7 +7,9 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import useKeyPress from "../hooks/useKeyPress";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import { useNavigate } from "react-router-dom";
-
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
 import background_1 from "../background/background_1.jpg";
 import background_2 from "../background/background_2.png";
 import background_3 from "../background/background_3.png";
@@ -131,6 +133,26 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
               position: "fixed",
             }}
           >
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={!roadMute}
+                    onChange={(e) => setRoadMute(!e.target.checked)}
+                  />
+                }
+                label="Other sounds"
+              />
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={!beatMute}
+                    onChange={(e) => setBeatMute(!e.target.checked)}
+                  />
+                }
+                label="BGM"
+              />
+            </FormGroup>
             <div
               style={{
                 fontSize: "20px",
@@ -170,35 +192,6 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
               whiteSpace: "nowrap",
             }}
           >
-            <ButtonGroup
-              orientation="horizontal"
-              aria-label="horizontal outlined button group"
-              style={{ width: "100%" }}
-            >
-              <Button
-                disableRipple={true}
-                key="btn1"
-                onClick={() => setRoadMute(!roadMute)}
-                style={{
-                  height: "35px",
-                  width: "100%",
-                }}
-              >
-                Road Mute/Unmute
-              </Button>
-              <Button
-                disableRipple={true}
-                key="btn2"
-                onClick={() => setBeatMute(!beatMute)}
-                style={{
-                  height: "35px",
-                  width: "100%",
-                }}
-              >
-                Beats Mute/Unmute
-              </Button>
-            </ButtonGroup>
-
             <div style={{ height: "70px", marginTop: height / 4 }}>
               {!isMove && direction === "right" && (
                 <img
