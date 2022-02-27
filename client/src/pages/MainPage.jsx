@@ -27,8 +27,6 @@ export default function MainPage() {
       url: `${apiHeader}`,
     })
       .then((res) => {
-        // console.log(res.data.data);
-        // rooms = res.data.data;
         setRooms(res.data.data);
       })
       .catch(function (error) {
@@ -128,17 +126,18 @@ export default function MainPage() {
             borderRadius: "20px",
             marginTop: "40px",
             cursor: "pointer",
+            color: "white",
+            padding: "15px",
+            width: "fit-content",
           }}
           onClick={() => {
             handleOpenCreateSongRoad();
           }}
         >
-          <div style={{ margin: "20px", color: "white", padding: "10px" }}>
-            Click here to create a new song road!
-          </div>
+          Create a new music town!
         </div>
 
-        <div
+        {/* <div
           style={{
             fontSize: "20px",
             backgroundColor: "#1A7FF3",
@@ -151,9 +150,9 @@ export default function MainPage() {
           }}
         >
           <div style={{ margin: "20px", color: "white", padding: "10px" }}>
-            Click here to join a song road!
+            Join a music town!
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div
@@ -213,11 +212,12 @@ export default function MainPage() {
       <CreateSongRoad
         openCreateSongRoad={openCreateSongRoad}
         handleCloseCreateSongRoad={handleCloseCreateSongRoad}
+        setRooms={setRooms}
       />
-      <JoinSongRoad
+      {/* <JoinSongRoad
         openJoinSongRoad={openJoinSongRoad}
         handleCloseJoinSongRoad={handleCloseJoinSongRoad}
-      />
+      /> */}
     </div>
   );
 }
