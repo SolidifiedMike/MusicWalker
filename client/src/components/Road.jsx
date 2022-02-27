@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { synth } from "./Instruments";
+import { synth1, synth2, sampler1 } from "./Instruments";
 
 import Tile from "../components/Tile";
 import ToneEditor from "../components/ToneEditor";
@@ -37,10 +37,16 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
 
   //Play Tone
   useEffect(() => {
+    const currNotes = [];
     if (index > 0) {
       if (roadConfig[index]["color"] !== "white") {
-        synth.triggerAttack(roadConfig[index]["note"], "16n");
-        synth.triggerRelease();
+        sampler1.triggerAttackRelease(roadConfig[index]["note"], "16n");
+      }
+      if (existedRoad[0].road[index]["color"] !== "white") {
+        synth2.triggerAttackRelease(existedRoad[0].road[index]["note"], "16n");
+      }
+      if (existedRoad[1].road[index]["color"] !== "white") {
+        synth1.triggerAttackRelease(existedRoad[1].road[index]["note"], "16n");
       }
     }
   }, [index]);
