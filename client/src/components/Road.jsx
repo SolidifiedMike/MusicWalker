@@ -55,7 +55,7 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad, id }) {
 
   //Play Tone
   useEffect(() => {
-    if (index > 0) {
+    if (index > 0 && index < roadLen) {
       const countPreviousRoad = existedRoad.length;
 
       if (countPreviousRoad % 4 === 0) {
@@ -118,10 +118,7 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad, id }) {
         setTimeout(() => {
           setIsMove(false);
         }, 300);
-      } else if (
-        (myKey === "ArrowRight" || myKey === "d") &&
-        index < roadLen - 1
-      ) {
+      } else if ((myKey === "ArrowRight" || myKey === "d") && index < roadLen) {
         // move to right
         setIndex(index + 1);
         e.preventDefault();
@@ -133,11 +130,15 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad, id }) {
       }
     }
     if (myKey === "Enter" && index != 0) {
+      e.preventDefault();
+      if (index == roadLen) {
+        handleAddNewRoad();
+        return;
+      }
       if (!openToneEditor) {
         handleOpenToneEditor();
       }
       setIsMove(false);
-      e.preventDefault();
     }
   });
 
@@ -345,6 +346,24 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad, id }) {
                   <Tile tileInfo={roadConfig[index]} />
                 </div>
               ))}
+              <div style={{ display: "inline-block" }}>
+                <div
+                  style={{
+                    boxShadow: "0px 0px 0px 4px black inset",
+                    height: "35px",
+                    width: "100px",
+                    flexShrink: "0",
+                    backgroundColor: "grey",
+                    color: "white",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    transform: "translateY(-11px)",
+                  }}
+                >
+                  Submit!
+                </div>
+              </div>
             </div>
             <br />
             {existedRoad[0] &&
