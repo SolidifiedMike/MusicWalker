@@ -1,15 +1,17 @@
 import { gql } from "apollo-server";
 
 export default gql`
-  scalar Date
 
   type Room {
-
+    _id: String!,
+    roomName: String!,
+    BGM: String!,
+    authors: [String],
   }
 
   type RoomMutationResponse {
     message: String!
-    data: User!
+    data: Room!
   }
 
   type Query {
