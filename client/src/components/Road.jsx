@@ -12,8 +12,7 @@ import background_1 from "../background/background_1.jpg";
 import background_2 from "../background/background_2.png";
 import Stack from "@mui/material/Stack";
 import background_3 from "../background/background_3.png";
-import Axios from "axios";
-import apiHeader from "../config";
+import AddSongRoad from "./AddSongRoad";
 
 export default function Road({ roadConfig, setRoadConfig, existedRoad, id }) {
   const navigate = useNavigate();
@@ -141,6 +140,7 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad, id }) {
     }
   });
 
+  /*
   const handleAddNewRoad = () => {
     const newRoad = {
       author: "newUser",
@@ -156,6 +156,15 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad, id }) {
     }).then((res) => {
       navigate("/");
     });
+  };
+  */
+
+  const [openAddSongRoad, setOpenAddSongRoad] = useState(false);
+  const handleOpenAddSongRoad = () => {
+    setOpenAddSongRoad(true);
+  };
+  const handleCloseAddSongRoad = () => {
+    setOpenAddSongRoad(false);
   };
 
   return (
@@ -251,7 +260,7 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad, id }) {
                     marginTop: "10px",
                     cursor: "pointer",
                   }}
-                  onClick={handleAddNewRoad}
+                  onClick={handleOpenAddSongRoad}
                 >
                   <div
                     style={{
@@ -389,6 +398,13 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad, id }) {
           />
         </div>
       </div>
+      <AddSongRoad
+        openAddSongRoad={openAddSongRoad}
+        handleCloseAddSongRoad={handleCloseAddSongRoad}
+        roadConfig={roadConfig}
+        instrument={instrument}
+        id={id}
+      />
     </div>
   );
 }
