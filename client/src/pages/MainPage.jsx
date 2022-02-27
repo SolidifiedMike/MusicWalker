@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+import CreateSongRoad from "../components/CreateSongRoad";
+import JoinSongRoad from "../components/JoinSongRoad";
+
 import useKeyPress from "../hooks/useKeyPress";
 import VerticalTile from "../components/VerticalTile";
 import { useNavigate } from "react-router-dom";
@@ -9,13 +12,29 @@ import background_1 from "../background/background_1.jpg";
 
 export default function MainPage() {
   const { height, width } = useWindowDimensions();
-  console.log(width);
 
   const [index, setIndex] = useState(0);
   const [move, setMove] = useState(false);
+  const [imgPath, setImgPath] = useState("/sprite/right_stand.gif");
   const navigate = useNavigate();
 
   const roads = [1, 1, 1, 1, 1, 1, 1, 1];
+
+  const [openCreateSongRoad, setOpenCreateSongRoad] = useState(false);
+  const handleOpenCreateSongRoad = () => {
+    setOpenCreateSongRoad(true);
+  };
+  const handleCloseCreateSongRoad = () => {
+    setOpenCreateSongRoad(false);
+  };
+
+  const [openJoinSongRoad, setOpenJoinSongRoad] = useState(false);
+  const handleOpenJoinSongRoad = () => {
+    setOpenJoinSongRoad(true);
+  };
+  const handleCloseJoinSongRoad = () => {
+    setOpenJoinSongRoad(false);
+  };
 
   // Move
   useKeyPress((e) => {
@@ -24,12 +43,20 @@ export default function MainPage() {
       // move up
       setIndex(index - 1);
       e.preventDefault();
+      setImgPath("/sprite/right_walk.gif");
+      setTimeout(() => {
+        setImgPath("/sprite/right_stand.gif");
+      }, 300);
     }
 
     if ((myKey === "ArrowDown" || myKey === "s") && index < roads.length - 1) {
       // move down
       setIndex(index + 1);
       e.preventDefault();
+      setImgPath("/sprite/right_walk.gif");
+      setTimeout(() => {
+        setImgPath("/sprite/right_stand.gif");
+      }, 300);
     }
 
     if (myKey === "Enter") {
@@ -49,19 +76,66 @@ export default function MainPage() {
         height: height - 1,
         backgroundImage: `url(${background_1})`,
         backgroundSize: width,
+        caretColor: "transparent",
       }}
     >
       <div
         style={{
           width: "350px",
-          // height: '300px',
-          paddingLeft: 50,
-          paddingTop: 100,
+          // height: '300px',s
+          paddingLeft: 25,
+          paddingRight: 25,
+          paddingTop: 20,
         }}
       >
-        <div>Use arrows or "W"/"A" to move up or down</div>
-        <br />
-        <div>Press "enter" to enter a song road!</div>
+        <div
+          style={{
+            fontSize: "20px",
+            backgroundColor: "white",
+            borderRadius: "20px",
+          }}
+        >
+          <br />
+          <div style={{ margin: "20px" }}>
+            Use arrows or "W"/"A" to move up or down
+          </div>
+          <div style={{ margin: "20px" }}>
+            Press "enter" to enter a song road!
+          </div>
+          <br />
+        </div>
+
+        <div
+          style={{
+            fontSize: "20px",
+            backgroundColor: "#1A7FF3",
+            borderRadius: "20px",
+            marginTop: "40px",
+          }}
+          onClick={() => {
+            handleOpenCreateSongRoad();
+          }}
+        >
+          <div style={{ margin: "20px", color: "white", padding: "10px" }}>
+            Click here to create a new song road!
+          </div>
+        </div>
+
+        <div
+          style={{
+            fontSize: "20px",
+            backgroundColor: "#1A7FF3",
+            borderRadius: "20px",
+            marginTop: "10px",
+          }}
+          onClick={() => {
+            handleOpenJoinSongRoad();
+          }}
+        >
+          <div style={{ margin: "20px", color: "white", padding: "10px" }}>
+            Click here to join a song road!
+          </div>
+        </div>
       </div>
 
       <div
@@ -71,7 +145,7 @@ export default function MainPage() {
         }}
       >
         <img
-          src="/sprite/right_stand.gif"
+          src={imgPath}
           width={"96px"}
           height={"68px"}
           style={{
@@ -111,6 +185,15 @@ export default function MainPage() {
           />
         </div>
       </div>
+
+      <CreateSongRoad
+        openCreateSongRoad={openCreateSongRoad}
+        handleCloseCreateSongRoad={handleCloseCreateSongRoad}
+      />
+      <JoinSongRoad
+        openJoinSongRoad={openJoinSongRoad}
+        handleCloseJoinSongRoad={handleCloseJoinSongRoad}
+      />
     </div>
   );
 }

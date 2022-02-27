@@ -58,7 +58,6 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
 
         setTimeout(() => {
           setIsMove(false);
-          console.log("time out");
         }, 300);
       } else if (
         (myKey === "ArrowRight" || myKey === "d") &&
@@ -71,7 +70,6 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
         setIsMove(true);
         setTimeout(() => {
           setIsMove(false);
-          console.log("time out");
         }, 300);
       }
     }
