@@ -53,7 +53,7 @@ export default function MainPage() {
   // Move
   useKeyPress((e) => {
     const myKey = e.key;
-    if ((myKey === "ArrowUp" || myKey === "w") && index > 0) {
+    if (myKey === "ArrowUp" && index > 0) {
       // move up
       setIndex(index - 1);
       e.preventDefault();
@@ -63,7 +63,7 @@ export default function MainPage() {
       }, 300);
     }
 
-    if ((myKey === "ArrowDown" || myKey === "s") && index < rooms.length - 1) {
+    if (myKey === "ArrowDown" && index < rooms.length - 1) {
       // move down
       setIndex(index + 1);
       e.preventDefault();
@@ -110,9 +110,7 @@ export default function MainPage() {
           }}
         >
           <br />
-          <div style={{ margin: "20px" }}>
-            Use arrows or "W"/"A" to move up or down
-          </div>
+          <div style={{ margin: "20px" }}>Use arrows to move up or down</div>
           <div style={{ margin: "20px" }}>
             Press "enter" to enter a song road!
           </div>

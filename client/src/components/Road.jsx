@@ -40,6 +40,14 @@ export default function Road({
   const [currPlayer, setCurrPlayer] = useState();
   const [instrument, setInstrument] = useState("synth1");
 
+  const [openAddSongRoad, setOpenAddSongRoad] = useState(false);
+  const handleOpenAddSongRoad = () => {
+    setOpenAddSongRoad(true);
+  };
+  const handleCloseAddSongRoad = () => {
+    setOpenAddSongRoad(false);
+  };
+
   useEffect(() => {
     if (BGM === "breakbeat") {
       setCurrPlayer(player);
@@ -138,8 +146,8 @@ export default function Road({
   // Move
   useKeyPress((e) => {
     const myKey = e.key;
-    if (!openToneEditor) {
-      if ((myKey === "ArrowLeft" || myKey === "a") && index > 0) {
+    if (!openToneEditor && !openAddSongRoad) {
+      if (myKey === "ArrowLeft" && index > 0) {
         // move to left
         setIndex(index - 1);
         e.preventDefault();
@@ -149,10 +157,7 @@ export default function Road({
         setTimeout(() => {
           setIsMove(false);
         }, 300);
-      } else if (
-        (myKey === "ArrowRight" || myKey === "d") &&
-        index < roadLen - 1
-      ) {
+      } else if (myKey === "ArrowRight" && index < roadLen - 1) {
         // move to right
         setIndex(index + 1);
         e.preventDefault();
@@ -190,14 +195,6 @@ export default function Road({
     });
   };
   */
-
-  const [openAddSongRoad, setOpenAddSongRoad] = useState(false);
-  const handleOpenAddSongRoad = () => {
-    setOpenAddSongRoad(true);
-  };
-  const handleCloseAddSongRoad = () => {
-    setOpenAddSongRoad(false);
-  };
 
   return (
     <div
@@ -252,7 +249,7 @@ export default function Road({
                   }}
                 >
                   <div style={{ padding: "15px" }}>
-                    Use arrows or "A"/"D" to move left or right
+                    Use arrows to move left or right
                     <br />
                     Press "enter" to add music notes
                   </div>
