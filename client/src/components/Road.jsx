@@ -95,8 +95,7 @@ export default function Road({
   //Play Tone
   useEffect(() => {
     if (index > 0 && index < roadLen) {
-      const countPreviousRoad = existedRoad.length;
-
+      const countPreviousRoad = existedRoad[0].length;
       if (countPreviousRoad % 4 === 0) {
         if (roadConfig[index]["color"] !== "white") {
           sampler1.triggerAttackRelease(roadConfig[index]["note"], "16n");
@@ -442,12 +441,15 @@ export default function Road({
                 </div>
               ))}
           </div>
-          <ToneEditor
-            openToneEditor={openToneEditor}
-            handleCloseToneEditor={handleCloseToneEditor}
-            editTileTone={editTileTone}
-            index={index}
-          />
+          {currPlayer && (
+            <ToneEditor
+              openToneEditor={openToneEditor}
+              handleCloseToneEditor={handleCloseToneEditor}
+              editTileTone={editTileTone}
+              index={index}
+              instrument={instrument}
+            />
+          )}
         </div>
       </div>
       <AddSongRoad
