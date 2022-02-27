@@ -157,11 +157,7 @@ export default function Road({
         setTimeout(() => {
           setIsMove(false);
         }, 300);
-<<<<<<< HEAD
       } else if ((myKey === "ArrowRight" || myKey === "d") && index < roadLen) {
-=======
-      } else if (myKey === "ArrowRight" && index < roadLen - 1) {
->>>>>>> 71f4f8f19bc77d1214eb09e4d5487dfc02522ae1
         // move to right
         setIndex(index + 1);
         e.preventDefault();
@@ -175,7 +171,7 @@ export default function Road({
     if (myKey === "Enter" && index != 0) {
       e.preventDefault();
       if (index == roadLen) {
-        handleAddNewRoad();
+        handleOpenAddSongRoad();
         return;
       }
       if (!openToneEditor) {
@@ -290,7 +286,7 @@ export default function Road({
                     Return to the main page
                   </div>
                 </div>
-                <div
+                {/* <div
                   style={{
                     fontSize: "20px",
                     backgroundColor: "#1A7FF3",
@@ -312,7 +308,7 @@ export default function Road({
                   >
                     Submit your road!
                   </div>
-                </div>
+                </div> */}
               </Stack>
               <FormGroup>
                 <FormControlLabel
