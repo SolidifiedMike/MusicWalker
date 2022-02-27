@@ -1,12 +1,20 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const { model, Schema } = mongoose;
 
-export const roomSchema = new Schema({
-  _id: String,
+const RoomSchema = new Schema({
   roomName: String,
   BGM: String,
-  authors: [String],
+  limit: Number,
+  author: String,
+  roads: [
+    {
+      author: String,
+      instrument: String,
+      road: [{ color: String, note: String }],
+    },
+  ],
 });
 
-export default model("Room", roomSchema);
+// Export the Mongoose model
+module.exports = mongoose.model("Room", RoomSchema);

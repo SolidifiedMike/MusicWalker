@@ -6,7 +6,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import { forwardRef } from "react";
-import { synth } from "./Instruments";
+import { synth1, sampler1 } from "./Instruments";
 import useKeyPress from "../hooks/useKeyPress";
 import { useState } from "react";
 
@@ -45,7 +45,7 @@ export default function Tile({
     if (myKey === "Enter") {
       editTileTone(index, noteList[currNote].color, noteList[currNote].note);
       if (noteList[currNote].color !== "grey") {
-        synth.triggerAttackRelease(noteList[currNote].note, "16n");
+        sampler1.triggerAttackRelease(noteList[currNote].note, "16n");
       }
       e.preventDefault();
     }
@@ -76,7 +76,7 @@ export default function Tile({
                   setCurrNote(i);
                   editTileTone(index, note.color, note.note);
                   if (note.color !== "grey") {
-                    synth.triggerAttackRelease(note.note, "16n");
+                    sampler1.triggerAttackRelease(note.note, "16n");
                   }
                 }}
                 style={{
