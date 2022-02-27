@@ -1,4 +1,4 @@
-export default function VerticalTile({ isActive }) {
+export default function VerticalTile({ isActive, roomName, author }) {
   return (
     <div
       style={{
@@ -45,7 +45,7 @@ export default function VerticalTile({ isActive }) {
                 transform: "scaleX(2.5) translateX(40%)",
               }}
             >
-              Music1 by Mike
+              {roomName + " by " + author}
             </div>
           </div>
         </div>
