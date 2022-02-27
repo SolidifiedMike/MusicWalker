@@ -10,14 +10,11 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import background_1 from "../background/background_1.jpg";
 import background_2 from "../background/background_2.png";
-import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
-import { styled } from "@mui/material/styles";
 import background_3 from "../background/background_3.png";
 
 export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
   const navigate = useNavigate();
-  console.log(roadConfig);
   const roadLen = roadConfig.length;
   const { height, width } = useWindowDimensions();
   const [isMove, setIsMove] = useState(false);
@@ -166,6 +163,7 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
                     cursor: "pointer",
                   }}
                   onClick={() => {
+                    player.mute = true;
                     navigate("/");
                   }}
                 >
