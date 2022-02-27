@@ -78,7 +78,7 @@ export default function MainPage() {
     if (myKey === "Enter") {
       setMove(true);
       setTimeout(() => {
-        navigate("/road");
+        navigate("/road/" + rooms[index].roomId);
       }, 1000);
     }
   });

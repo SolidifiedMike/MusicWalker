@@ -1,7 +1,24 @@
 import React from "react";
 import Road from "../components/Road";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Axios from "axios";
+import apiHeader from "../config";
 export default function MusicPage() {
+  const { id } = useParams();
+  useEffect(() => {
+    Axios({
+      method: "GET",
+      url: `${apiHeader + "/" + id}`,
+    })
+      .then((res) => {
+        console.log(res.data.data);
+        // rooms = res.data.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
   // MockData
   const existedRoad = [
     {
