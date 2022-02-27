@@ -13,12 +13,7 @@ import background_2 from "../background/background_2.png";
 import Stack from "@mui/material/Stack";
 import background_3 from "../background/background_3.png";
 
-export default function Road({
-  roadConfig,
-  setRoadConfig,
-  existedRoad,
-  roadConfigDefault,
-}) {
+export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
   const navigate = useNavigate();
   const roadLen = roadConfig.length;
   const { height, width } = useWindowDimensions();
@@ -26,6 +21,7 @@ export default function Road({
   const [direction, setDirection] = useState("right");
   const [roadMute, setRoadMute] = useState(false);
   const [beatMute, setBeatMute] = useState(false);
+
   useEffect(() => {
     player.start(0);
     player.autostart = true;
@@ -57,9 +53,26 @@ export default function Road({
   //Play Tone
   useEffect(() => {
     if (index > 0) {
-      if (roadConfig[index]["color"] !== "white") {
-        sampler1.triggerAttackRelease(roadConfig[index]["note"], "16n");
+      const countPreviousRoad = existedRoad.length;
+
+      if (countPreviousRoad % 4 === 0) {
+        if (roadConfig[index]["color"] !== "white") {
+          sampler1.triggerAttackRelease(roadConfig[index]["note"], "16n");
+        }
+      } else if (countPreviousRoad % 4 === 1) {
+        if (roadConfig[index]["color"] !== "white") {
+          sampler2.triggerAttackRelease(roadConfig[index]["note"], "16n");
+        }
+      } else if (countPreviousRoad % 4 === 2) {
+        if (roadConfig[index]["color"] !== "white") {
+          synth1.triggerAttackRelease(roadConfig[index]["note"], "16n");
+        }
+      } else if (countPreviousRoad % 4 === 3) {
+        if (roadConfig[index]["color"] !== "white") {
+          synth2.triggerAttackRelease(roadConfig[index]["note"], "16n");
+        }
       }
+
       existedRoad[0].map((road) => {
         const instrument = road.instrument;
         console.log(instrument);
