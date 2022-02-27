@@ -5,51 +5,88 @@ import VerticalTile from "../components/VerticalTile";
 
 export default function MainPage() {
   const [index, setIndex] = useState(0);
+  const [move, setMove] = useState(false);
   const roads = [1, 1, 1, 1, 1, 1, 1, 1];
 
   // Move
   useKeyPress((e) => {
     const myKey = e.key;
-    if ((myKey === 'ArrowUp' || myKey === 'w')) {
+    if ((myKey === 'ArrowUp' || myKey === 'w') && index > 0) {
       // move up
       setIndex(index - 1);
       e.preventDefault();
     }
 
-    if ((myKey === 'ArrowDown' || myKey === 's')) {
+    if ((myKey === 'ArrowDown' || myKey === 's') && index < roads.length - 1) {
       // move down
       setIndex(index + 1);
       e.preventDefault();
+    }
+
+    if (myKey === "Enter") {
+      setMove(true)
     }
   });
 
   return (
     <div style={{
-      // width: '100%',
-      height: '100vh',
-      overflow: 'hidden',
       display: 'flex',
-      justifyContent: 'center'
+      width: '100vw',
+      overflow: 'hidden'
     }}>
-      <img
-        src="/sprite/test.gif"
-        width={'100px'}
-        height={'100px'}
-        style={{
-          position: 'absolute',
-          zIndex: 10,
-          marginTop: '220px'
-        }}
-      />
       <div style={{
-        transform: `translate3d(0, ${-index * 200 + 200}px, 0)`,
-        transition: 'ease 200ms',
+        width: '350px',
+        // height: '300px',
+        paddingLeft: 50,
+        paddingTop: 100
       }}>
-        {roads.map((_, i) => {
-          return (<VerticalTile isActive={index === i} />)
-        })}
+        <div>
+          Use arrows or "W"/"A" to move up or down
+        </div>
+        <br />
+        <div>
+          Press "enter" to enter a song road!
+        </div>
       </div>
-    </div>
 
+      <div style={{
+        height: '100vh',
+        weight: '500px',
+      }}>
+        <img
+          src="/sprite/test.gif"
+          width={'100px'}
+          height={'100px'}
+          style={{
+            position: 'absolute',
+            zIndex: 10,
+            marginTop: '240px',
+            transform: move ? 'translateX(2000px)' : 'translateX(-20px)',
+            transition: 'linear 2s'
+          }}
+        />
+        <div style={{
+          transform: `translate3d(0, ${-index * 200}px, 0)`,
+          transition: 'ease 200ms',
+        }}>
+          <div style={{
+            width: '50px',
+            height: '220px',
+            backgroundColor: 'black',
+            flexShrink: '0',
+          }} />
+          {roads.map((_, i) => {
+            return (<VerticalTile isActive={index === i} />)
+          })}
+          <div style={{
+            width: '50px',
+            height: '500px',
+            backgroundColor: 'black',
+            flexShrink: '0',
+          }} />
+
+        </div>
+      </div>
+    </div >
   )
 }
