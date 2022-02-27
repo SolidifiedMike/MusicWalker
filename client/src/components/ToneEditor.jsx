@@ -28,7 +28,7 @@ export default function Tile({
     { color: "#8486ff", note: "E4" },
     { color: "#e39cff", note: "D4" },
     { color: "#ffc0cb", note: "C4" },
-    { color: "lightgrey", note: "1m" },
+    { color: "white", note: "1m" },
   ];
   const [currNote, setCurrNote] = useState(0);
   useKeyPress((e) => {

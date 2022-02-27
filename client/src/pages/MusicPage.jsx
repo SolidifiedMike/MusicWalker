@@ -1,11 +1,8 @@
 import React from "react";
 import Road from "../components/Road";
-import useWindowDimensions from "../hooks/useWindowDimensions";
 import { useState } from "react";
 
 export default function MusicPage() {
-  const { height, width } = useWindowDimensions();
-
   // MockData
   const existedRoad = [
     {
@@ -82,17 +79,11 @@ export default function MusicPage() {
   const [roadConfig, setRoadConfig] = useState(roadConfigDefault);
   return (
     <div>
-      <div
-        style={{
-          marginTop: height / 4,
-        }}
-      >
-        <Road
-          roadConfig={roadConfig}
-          setRoadConfig={setRoadConfig}
-          existedRoad={existedRoad}
-        />
-      </div>
+      <Road
+        roadConfig={roadConfig}
+        setRoadConfig={setRoadConfig}
+        existedRoad={existedRoad}
+      />
     </div>
   );
 }
