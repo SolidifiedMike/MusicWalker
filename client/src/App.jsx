@@ -8,7 +8,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/road" element={<MusicPage />} />
+        <Route path="/road/:id" element={<MusicPage />} />
         <Route path="/" element={<MainPage />} />
       </Routes>
     </Router>

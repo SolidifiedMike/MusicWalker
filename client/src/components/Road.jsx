@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { synth1, synth2, sampler1, player } from "./Instruments";
+import { synth1, synth2, sampler1, sampler2, player } from "./Instruments";
 import Tile from "../components/Tile";
 import ToneEditor from "../components/ToneEditor";
 import useKeyPress from "../hooks/useKeyPress";
@@ -13,7 +13,12 @@ import background_2 from "../background/background_2.png";
 import Stack from "@mui/material/Stack";
 import background_3 from "../background/background_3.png";
 
-export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
+export default function Road({
+  roadConfig,
+  setRoadConfig,
+  existedRoad,
+  roadConfigDefault,
+}) {
   const navigate = useNavigate();
   const roadLen = roadConfig.length;
   const { height, width } = useWindowDimensions();
@@ -21,9 +26,16 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
   const [direction, setDirection] = useState("right");
   const [roadMute, setRoadMute] = useState(false);
   const [beatMute, setBeatMute] = useState(false);
-  player.mute = beatMute;
-  player.loop = true;
-  player.autostart = true;
+  useEffect(() => {
+    player.start(0);
+    player.autostart = true;
+    player.loop = true;
+  }, []);
+
+  useEffect(() => {
+    player.mute = beatMute;
+  }, [beatMute]);
+
   // position on the road
   const [index, setIndex] = useState(0);
 
@@ -44,17 +56,31 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
 
   //Play Tone
   useEffect(() => {
-    const currNotes = [];
     if (index > 0) {
       if (roadConfig[index]["color"] !== "white") {
         sampler1.triggerAttackRelease(roadConfig[index]["note"], "16n");
       }
-      if (existedRoad[0].road[index]["color"] !== "white" && !roadMute) {
-        synth2.triggerAttackRelease(existedRoad[0].road[index]["note"], "16n");
-      }
-      if (existedRoad[1].road[index]["color"] !== "white" && !roadMute) {
-        synth1.triggerAttackRelease(existedRoad[1].road[index]["note"], "16n");
-      }
+      existedRoad[0].map((road) => {
+        const instrument = road.instrument;
+        console.log(instrument);
+        if (instrument === "synth2") {
+          if (road.road[index]["color"] !== "white" && !roadMute) {
+            synth2.triggerAttackRelease(road.road[index]["note"], "16n");
+          }
+        } else if (instrument == "synth1") {
+          if (road.road[index]["color"] !== "white" && !roadMute) {
+            synth1.triggerAttackRelease(road.road[index]["note"], "16n");
+          }
+        } else if (instrument == "sampler1") {
+          if (road.road[index]["color"] !== "white" && !roadMute) {
+            sampler1.triggerAttackRelease(road.road[index]["note"], "16n");
+          }
+        } else if (instrument == "sampler2") {
+          if (road.road[index]["color"] !== "white" && !roadMute) {
+            sampler2.triggerAttackRelease(road.road[index]["note"], "16n");
+          }
+        }
+      });
     }
   }, [index]);
 
@@ -283,37 +309,39 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
               ))}
             </div>
             <br />
-            {existedRoad.map((existedRoad) => (
-              <div key={existedRoad["author"]}>
-                <div
-                  style={{
-                    transform: `translate3d(${-index * 100}px, 0, 0)`,
-                    transition: "ease 200ms",
-                    marginLeft: width / 2 - 100,
-                  }}
-                >
-                  {existedRoad["author"]}
+            {existedRoad[0] &&
+              existedRoad[0].map((existedRoad) => (
+                <div key={existedRoad["author"]}>
+                  <div
+                    style={{
+                      transform: `translate3d(${-index * 100}px, 0, 0)`,
+                      transition: "ease 200ms",
+                      marginLeft: width / 2 - 100,
+                    }}
+                  >
+                    {existedRoad["author"]}
+                  </div>
+                  <div
+                    style={{
+                      transform: `translate3d(${-index * 100}px, 0, 0)`,
+                      transition: "ease 200ms",
+                      marginLeft: width / 2 - 100,
+                    }}
+                  >
+                    {existedRoad["road"] &&
+                      existedRoad["road"].map((_, index) => (
+                        <div
+                          key={existedRoad["author"] + String(index)}
+                          style={{
+                            display: "inline-block",
+                          }}
+                        >
+                          <Tile tileInfo={existedRoad["road"][index]} />
+                        </div>
+                      ))}
+                  </div>
                 </div>
-                <div
-                  style={{
-                    transform: `translate3d(${-index * 100}px, 0, 0)`,
-                    transition: "ease 200ms",
-                    marginLeft: width / 2 - 100,
-                  }}
-                >
-                  {existedRoad["road"].map((_, index) => (
-                    <div
-                      key={existedRoad["author"] + String(index)}
-                      style={{
-                        display: "inline-block",
-                      }}
-                    >
-                      <Tile tileInfo={existedRoad["road"][index]} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
+              ))}
           </div>
           <ToneEditor
             openToneEditor={openToneEditor}

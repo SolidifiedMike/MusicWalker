@@ -1,84 +1,51 @@
 import React from "react";
 import Road from "../components/Road";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Axios from "axios";
+import apiHeader from "../config";
 export default function MusicPage() {
-  // MockData
-  const existedRoad = [
-    {
-      author: "Mike",
-      road: [
-        { color: "grey", note: "" },
-        { color: "#adff2f", note: "B4" },
-        { color: "#78acff", note: "F4" },
-        { color: "white", note: "" },
-        { color: "white", note: "" },
-        { color: "#adff2f", note: "B4" },
-        { color: "#adff2f", note: "B4" },
-        { color: "white", note: "" },
-        { color: "white", note: "" },
-        { color: "white", note: "" },
-        { color: "white", note: "" },
-        { color: "white", note: "" },
-        { color: "#78acff", note: "F4" },
-        { color: "#adff2f", note: "B4" },
-        { color: "white", note: "" },
-        { color: "white", note: "" },
-        { color: "white", note: "" },
-        { color: "white", note: "" },
-        { color: "white", note: "" },
-      ],
-    },
-    {
-      author: "Ray",
-      road: [
-        { color: "grey", note: "" },
-        { color: "#adff2f", note: "B4" },
-        { color: "white", note: "" },
-        { color: "white", note: "" },
-        { color: "white", note: "" },
-        { color: "white", note: "" },
-        { color: "#adff2f", note: "B4" },
-        { color: "#78acff", note: "F4" },
-        { color: "white", note: "" },
-        { color: "white", note: "" },
-        { color: "white", note: "" },
-        { color: "white", note: "" },
-        { color: "#adff2f", note: "B4" },
-        { color: "#78acff", note: "F4" },
-        { color: "white", note: "" },
-        { color: "white", note: "" },
-        { color: "white", note: "" },
-        { color: "white", note: "" },
-        { color: "white", note: "" },
-      ],
-    },
-  ];
+  const { id } = useParams();
+  const [existedRoadData, setExistedRoadData] = useState([]);
+  useEffect(() => {
+    Axios({
+      method: "GET",
+      url: `${apiHeader + "/" + id}`,
+    })
+      .then((res) => {
+        setExistedRoadData(res.data.data);
+        // rooms = res.data.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
 
-  const roadConfigDefault = [
-    { color: "grey", note: "" },
-    { color: "white", note: "" },
-    { color: "white", note: "" },
-    { color: "white", note: "" },
-    { color: "white", note: "" },
-    { color: "white", note: "" },
-    { color: "white", note: "" },
-    { color: "white", note: "" },
-    { color: "white", note: "" },
-    { color: "white", note: "" },
-    { color: "white", note: "" },
-    { color: "white", note: "" },
-    { color: "white", note: "" },
-    { color: "white", note: "" },
-    { color: "white", note: "" },
-    { color: "white", note: "" },
-    { color: "white", note: "" },
-    { color: "white", note: "" },
-    { color: "white", note: "" },
-  ];
+  // MockData
+  let existedRoad = [];
+  let limit = 1;
+
+  if (existedRoadData.length != 0) {
+    existedRoad = [
+      existedRoadData.roads.map((road) => ({
+        author: road.author,
+        instrument: road.instrument,
+        road: road.road,
+      })),
+    ];
+    limit = existedRoadData.limit;
+  }
+
+  const roadConfigDefault = [...Array(limit).keys()].map(() => {
+    return { color: "white", note: "" };
+  });
+  roadConfigDefault[0]["color"] = "grey";
   const [roadConfig, setRoadConfig] = useState(roadConfigDefault);
+
   return (
     <Road
       roadConfig={roadConfig}
+      roadConfigDefault={roadConfigDefault}
       setRoadConfig={setRoadConfig}
       existedRoad={existedRoad}
     />
