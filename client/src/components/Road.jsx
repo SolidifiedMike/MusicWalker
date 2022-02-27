@@ -89,7 +89,7 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
       style={{
         height: height - 1,
         backgroundImage: `url(${background_1})`,
-        backgroundSize: width,
+        backgroundSize: "cover",
         caretColor: "transparent",
       }}
     >
@@ -97,7 +97,7 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
         style={{
           height: height - 1,
           backgroundImage: `url(${background_2})`,
-          backgroundSize: width,
+          backgroundSize: "cover",
           backgroundPositionX: width - 10 * index,
           transition: "linear 200ms",
         }}
@@ -106,7 +106,7 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
           style={{
             height: height - 1,
             backgroundImage: `url(${background_3})`,
-            backgroundSize: width,
+            backgroundSize: "cover",
             backgroundPositionX: width - 50 * index,
             transition: "linear 200ms",
           }}
