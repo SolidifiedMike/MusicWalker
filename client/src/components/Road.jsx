@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { synth1, synth2, sampler1, player } from "./Instruments";
 import Tile from "../components/Tile";
 import ToneEditor from "../components/ToneEditor";
-import Button from "@mui/material/Button";
-import ButtonGroup from "@mui/material/ButtonGroup";
 import useKeyPress from "../hooks/useKeyPress";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +10,9 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import background_1 from "../background/background_1.jpg";
 import background_2 from "../background/background_2.png";
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
+import { styled } from "@mui/material/styles";
 import background_3 from "../background/background_3.png";
 
 export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
@@ -134,58 +135,99 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
               position: "fixed",
             }}
           >
-            <FormGroup>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={!roadMute}
-                    onChange={(e) => setRoadMute(!e.target.checked)}
-                  />
-                }
-                label="Other sounds"
-              />
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={!beatMute}
-                    onChange={(e) => setBeatMute(!e.target.checked)}
-                  />
-                }
-                label="BGM"
-              />
-            </FormGroup>
-            <div
+            <Stack
+              direction="row"
+              spacing={3}
               style={{
-                fontSize: "20px",
-                backgroundColor: "white",
-                borderRadius: "20px",
+                width: width,
               }}
             >
-              <div style={{ padding: "15px" }}>
-                Use arrows or "A"/"D" to move left or right
-                <br />
-                Press "enter" to add music notes
-              </div>
-            </div>
+              <Stack>
+                <div
+                  style={{
+                    fontSize: "20px",
+                    backgroundColor: "white",
+                    borderRadius: "20px",
+                  }}
+                >
+                  <div style={{ padding: "15px" }}>
+                    Use arrows or "A"/"D" to move left or right
+                    <br />
+                    Press "enter" to add music notes
+                  </div>
+                </div>
 
-            <div
-              style={{
-                fontSize: "20px",
-                backgroundColor: "#1A7FF3",
-                borderRadius: "20px",
-                marginTop: "15px",
-                cursor: "pointer",
-              }}
-              onClick={() => {
-                player.mute = true;
-                navigate("/");
-              }}
-            >
-              <div style={{ color: "white", padding: "15px" }}>
-                Return to the main page
-              </div>
-            </div>
+                <div
+                  style={{
+                    fontSize: "20px",
+                    backgroundColor: "#1A7FF3",
+                    borderRadius: "20px",
+                    marginTop: "10px",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                >
+                  <div
+                    style={{
+                      color: "white",
+                      paddingTop: "10px",
+                      paddingBottom: "10px",
+                      paddingLeft: "15px",
+                      paddingright: "15px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Return to the main page
+                  </div>
+                </div>
+                <div
+                  style={{
+                    fontSize: "20px",
+                    backgroundColor: "#1A7FF3",
+                    borderRadius: "20px",
+                    marginTop: "10px",
+                    cursor: "pointer",
+                  }}
+                >
+                  <div
+                    style={{
+                      color: "white",
+                      paddingTop: "10px",
+                      paddingBottom: "10px",
+                      paddingLeft: "15px",
+                      paddingright: "15px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Submit your road!
+                  </div>
+                </div>
+              </Stack>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={!roadMute}
+                      onChange={(e) => setRoadMute(!e.target.checked)}
+                    />
+                  }
+                  label="Other sounds"
+                />
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={!beatMute}
+                      onChange={(e) => setBeatMute(!e.target.checked)}
+                    />
+                  }
+                  label="BGM"
+                />
+              </FormGroup>
+            </Stack>
           </div>
+
           <div
             style={{
               margin: "0 auto",
