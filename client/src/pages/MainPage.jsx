@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 
 import useKeyPress from '../hooks/useKeyPress';
 import VerticalTile from "../components/VerticalTile";
+import { useNavigate } from 'react-router-dom';
 
 export default function MainPage() {
   const [index, setIndex] = useState(0);
   const [move, setMove] = useState(false);
+  const navigate = useNavigate();
+
   const roads = [1, 1, 1, 1, 1, 1, 1, 1];
 
   // Move
@@ -24,7 +27,10 @@ export default function MainPage() {
     }
 
     if (myKey === "Enter") {
-      setMove(true)
+      setMove(true);
+      setTimeout(() => {
+        navigate('/road');
+      }, 2000)
     }
   });
 

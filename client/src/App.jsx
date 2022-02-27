@@ -12,8 +12,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<MusicPage />} />
-        <Route path='/main' element={<MainPage />} />
+        <Route path='/road' element={<MusicPage />} />
+        <Route path='/' element={<MainPage />} />
       </Routes>
 
     </Router>
