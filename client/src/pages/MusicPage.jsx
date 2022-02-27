@@ -41,11 +41,13 @@ export default function MusicPage() {
   });
   roadConfigDefault[0]["color"] = "grey";
   const [roadConfig, setRoadConfig] = useState(roadConfigDefault);
+  useEffect(() => {
+    setRoadConfig(roadConfigDefault);
+  }, [roadConfigDefault.length]);
 
   return (
     <Road
       roadConfig={roadConfig}
-      roadConfigDefault={roadConfigDefault}
       setRoadConfig={setRoadConfig}
       existedRoad={existedRoad}
     />
