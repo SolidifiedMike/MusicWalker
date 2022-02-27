@@ -146,15 +146,47 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
                 fontSize: "20px",
                 backgroundColor: "#1A7FF3",
                 borderRadius: "20px",
-                marginTop: "15px",
+                marginTop: "10px",
                 cursor: "pointer",
               }}
               onClick={() => {
                 navigate("/");
               }}
             >
-              <div style={{ color: "white", padding: "15px" }}>
+              <div
+                style={{
+                  color: "white",
+                  paddingTop: "10px",
+                  paddingBottom: "10px",
+                  paddingLeft: "15px",
+                  paddingright: "15px",
+                  cursor: "pointer",
+                }}
+              >
                 Return to the main page
+              </div>
+            </div>
+
+            <div
+              style={{
+                fontSize: "20px",
+                backgroundColor: "#1A7FF3",
+                borderRadius: "20px",
+                marginTop: "10px",
+                cursor: "pointer",
+              }}
+            >
+              <div
+                style={{
+                  color: "white",
+                  paddingTop: "10px",
+                  paddingBottom: "10px",
+                  paddingLeft: "15px",
+                  paddingright: "15px",
+                  cursor: "pointer",
+                }}
+              >
+                Submit your road!
               </div>
             </div>
           </div>
