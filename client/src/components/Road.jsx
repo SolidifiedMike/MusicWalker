@@ -21,8 +21,16 @@ import background_1 from "../background/background_1.jpg";
 import background_2 from "../background/background_2.png";
 import Stack from "@mui/material/Stack";
 import background_3 from "../background/background_3.png";
+import Axios from "axios";
+import apiHeader from "../config";
 
-export default function Road({ roadConfig, setRoadConfig, existedRoad, BGM }) {
+export default function Road({
+  roadConfig,
+  setRoadConfig,
+  existedRoad,
+  BGM,
+  id,
+}) {
   const navigate = useNavigate();
   const roadLen = roadConfig.length;
   const { height, width } = useWindowDimensions();
@@ -31,6 +39,7 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad, BGM }) {
   const [roadMute, setRoadMute] = useState(false);
   const [beatMute, setBeatMute] = useState(false);
   const [currPlayer, setCurrPlayer] = useState();
+  const [instrument, setInstrument] = useState("synth1");
 
   useEffect(() => {
     if (BGM === "breakbeat") {
@@ -84,18 +93,22 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad, BGM }) {
       if (countPreviousRoad % 4 === 0) {
         if (roadConfig[index]["color"] !== "white") {
           sampler1.triggerAttackRelease(roadConfig[index]["note"], "16n");
+          setInstrument("sampler1");
         }
       } else if (countPreviousRoad % 4 === 1) {
         if (roadConfig[index]["color"] !== "white") {
           sampler2.triggerAttackRelease(roadConfig[index]["note"], "16n");
+          setInstrument("sampler2");
         }
       } else if (countPreviousRoad % 4 === 2) {
         if (roadConfig[index]["color"] !== "white") {
           synth1.triggerAttackRelease(roadConfig[index]["note"], "16n");
+          setInstrument("synth1");
         }
       } else if (countPreviousRoad % 4 === 3) {
         if (roadConfig[index]["color"] !== "white") {
           synth2.triggerAttackRelease(roadConfig[index]["note"], "16n");
+          setInstrument("synth2");
         }
       }
 
@@ -159,6 +172,23 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad, BGM }) {
       e.preventDefault();
     }
   });
+
+  const handleAddNewRoad = () => {
+    const newRoad = {
+      author: "newUser",
+      instrument: instrument,
+      road: roadConfig,
+    };
+    console.log(newRoad);
+
+    Axios({
+      method: "PUT",
+      data: newRoad,
+      url: `${apiHeader + "/" + id}`,
+    }).then((res) => {
+      navigate("/");
+    });
+  };
 
   return (
     <div
@@ -254,6 +284,7 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad, BGM }) {
                     marginTop: "10px",
                     cursor: "pointer",
                   }}
+                  onClick={handleAddNewRoad}
                 >
                   <div
                     style={{
