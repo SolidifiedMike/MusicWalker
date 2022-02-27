@@ -1,7 +1,6 @@
 import React from "react";
 import Road from "../components/Road";
 import { useState } from "react";
-
 export default function MusicPage() {
   // MockData
   const existedRoad = [

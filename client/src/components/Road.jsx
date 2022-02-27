@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { synth1, synth2, sampler1 } from "./Instruments";
-
+import { synth1, synth2, sampler1, player } from "./Instruments";
 import Tile from "../components/Tile";
 import ToneEditor from "../components/ToneEditor";
-
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
 import useKeyPress from "../hooks/useKeyPress";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +18,11 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
   const { height, width } = useWindowDimensions();
   const [isMove, setIsMove] = useState(false);
   const [direction, setDirection] = useState("right");
-
+  const [roadMute, setRoadMute] = useState(false);
+  const [beatMute, setBeatMute] = useState(false);
+  player.mute = beatMute;
+  player.loop = true;
+  player.autostart = true;
   // position on the road
   const [index, setIndex] = useState(0);
 
@@ -44,10 +48,10 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
       if (roadConfig[index]["color"] !== "white") {
         sampler1.triggerAttackRelease(roadConfig[index]["note"], "16n");
       }
-      if (existedRoad[0].road[index]["color"] !== "white") {
+      if (existedRoad[0].road[index]["color"] !== "white" && !roadMute) {
         synth2.triggerAttackRelease(existedRoad[0].road[index]["note"], "16n");
       }
-      if (existedRoad[1].road[index]["color"] !== "white") {
+      if (existedRoad[1].road[index]["color"] !== "white" && !roadMute) {
         synth1.triggerAttackRelease(existedRoad[1].road[index]["note"], "16n");
       }
     }
@@ -198,6 +202,35 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
               whiteSpace: "nowrap",
             }}
           >
+            <ButtonGroup
+              orientation="horizontal"
+              aria-label="horizontal outlined button group"
+              style={{ width: "100%" }}
+            >
+              <Button
+                disableRipple={true}
+                key="btn1"
+                onClick={() => setRoadMute(!roadMute)}
+                style={{
+                  height: "35px",
+                  width: "100%",
+                }}
+              >
+                Road Mute/Unmute
+              </Button>
+              <Button
+                disableRipple={true}
+                key="btn2"
+                onClick={() => setBeatMute(!beatMute)}
+                style={{
+                  height: "35px",
+                  width: "100%",
+                }}
+              >
+                Beats Mute/Unmute
+              </Button>
+            </ButtonGroup>
+
             <div style={{ height: "70px", marginTop: height / 4 }}>
               {!isMove && direction === "right" && (
                 <img

@@ -34,3 +34,11 @@ export const sampler1 = new Tone.Sampler({
   },
   baseUrl: "https://tonejs.github.io/audio/berklee/",
 }).toDestination();
+
+export const player = new Tone.Player(
+  "https://tonejs.github.io/audio/drum-samples/breakbeat.mp3"
+).toDestination();
+
+export const player2 = new Tone.Player(
+  "https://tonejs.github.io/audio/drum-samples/handdrum-loop.mp3"
+).toDestination();
