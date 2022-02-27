@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { synth1, synth2, sampler1, sampler2, player } from "./Instruments";
+import {
+  synth1,
+  synth2,
+  sampler1,
+  sampler2,
+  player,
+  player2,
+  player3,
+  player4,
+} from "./Instruments";
 import Tile from "../components/Tile";
 import ToneEditor from "../components/ToneEditor";
 import useKeyPress from "../hooks/useKeyPress";
@@ -13,7 +22,7 @@ import background_2 from "../background/background_2.png";
 import Stack from "@mui/material/Stack";
 import background_3 from "../background/background_3.png";
 
-export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
+export default function Road({ roadConfig, setRoadConfig, existedRoad, BGM }) {
   const navigate = useNavigate();
   const roadLen = roadConfig.length;
   const { height, width } = useWindowDimensions();
@@ -21,15 +30,32 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
   const [direction, setDirection] = useState("right");
   const [roadMute, setRoadMute] = useState(false);
   const [beatMute, setBeatMute] = useState(false);
+  const [currPlayer, setCurrPlayer] = useState();
 
   useEffect(() => {
-    player.start(0);
-    player.autostart = true;
-    player.loop = true;
-  }, []);
+    if (BGM === "breakbeat") {
+      setCurrPlayer(player);
+    } else if (BGM === "handdrum") {
+      setCurrPlayer(player2);
+    } else if (BGM === "Djembe") {
+      setCurrPlayer(player3);
+    } else if (BGM === "conga-rhythm") {
+      setCurrPlayer(player4);
+    }
+  }, [BGM]);
 
   useEffect(() => {
-    player.mute = beatMute;
+    if (currPlayer) {
+      currPlayer.start(0);
+      currPlayer.autostart = true;
+      currPlayer.loop = true;
+    }
+  }, [currPlayer]);
+
+  useEffect(() => {
+    if (currPlayer) {
+      currPlayer.mute = beatMute;
+    }
   }, [beatMute]);
 
   // position on the road
@@ -202,7 +228,8 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
                     cursor: "pointer",
                   }}
                   onClick={() => {
-                    player.mute = true;
+                    if (currPlayer) currPlayer.mute = true;
+
                     navigate("/");
                   }}
                 >

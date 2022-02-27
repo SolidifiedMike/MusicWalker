@@ -50,6 +50,7 @@ export default function MusicPage() {
       roadConfig={roadConfig}
       setRoadConfig={setRoadConfig}
       existedRoad={existedRoad}
+      BGM={existedRoadData.BGM}
     />
   );
 }
