@@ -10,6 +10,8 @@ import useWindowDimensions from "../hooks/useWindowDimensions";
 export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
   const roadLen = roadConfig.length;
   const { height, width } = useWindowDimensions();
+  const [isMove, setIsMove] = useState(false);
+  const [direction, setDirection] = useState("right");
 
   // position on the road
   const [index, setIndex] = useState(0);
@@ -47,19 +49,33 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
         // move to left
         setIndex(index - 1);
         e.preventDefault();
-      }
+        setDirection("left");
+        setIsMove(true);
 
-      if ((myKey === "ArrowRight" || myKey === "d") && index < roadLen - 1) {
+        setTimeout(() => {
+          setIsMove(false);
+          console.log("time out");
+        }, 300);
+      } else if (
+        (myKey === "ArrowRight" || myKey === "d") &&
+        index < roadLen - 1
+      ) {
         // move to right
         setIndex(index + 1);
         e.preventDefault();
+        setDirection("right");
+        setIsMove(true);
+        setTimeout(() => {
+          setIsMove(false);
+          console.log("time out");
+        }, 300);
       }
     }
-
     if (myKey === "Enter") {
       if (!openToneEditor) {
         handleOpenToneEditor();
       }
+      setIsMove(false);
       e.preventDefault();
     }
   });
@@ -74,11 +90,36 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
           whiteSpace: "nowrap",
         }}
       >
-        <img
-          src="/sprite/test.gif"
-          width={"100px"}
-          style={{ marginLeft: width / 2 - 100 }}
-        />
+        <div style={{ height: "70px" }}>
+          {!isMove && direction === "right" && (
+            <img
+              src="/sprite/right_stand.gif"
+              width={"100px"}
+              style={{ marginLeft: width / 2 - 100 }}
+            />
+          )}
+          {!isMove && direction === "left" && (
+            <img
+              src="/sprite/left_stand.gif"
+              width={"100px"}
+              style={{ marginLeft: width / 2 - 100 }}
+            />
+          )}
+          {isMove && direction === "right" && (
+            <img
+              src="/sprite/right_walk.gif"
+              width={"100px"}
+              style={{ marginLeft: width / 2 - 100 }}
+            />
+          )}
+          {isMove && direction === "left" && (
+            <img
+              src="/sprite/left_walk.gif"
+              width={"100px"}
+              style={{ marginLeft: width / 2 - 100 }}
+            />
+          )}
+        </div>
         <div
           style={{
             transform: `translate3d(${-index * 100}px, 0, 0)`,
