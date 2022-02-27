@@ -33,12 +33,12 @@ export default function Tile({
   const [currNote, setCurrNote] = useState(0);
   useKeyPress((e) => {
     const myKey = e.key;
-    if (myKey === "ArrowUp" || myKey === "w") {
+    if (myKey === "ArrowUp") {
       setCurrNote(Math.max(currNote - 1, 0));
       e.preventDefault();
     }
 
-    if (myKey === "ArrowDown" || myKey === "s") {
+    if (myKey === "ArrowDown") {
       setCurrNote(Math.min(currNote + 1, noteList.length - 1));
       e.preventDefault();
     }

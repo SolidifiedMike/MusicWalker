@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { synth1, synth2, sampler1, sampler2, player } from "./Instruments";
+import {
+  synth1,
+  synth2,
+  sampler1,
+  sampler2,
+  player,
+  player2,
+  player3,
+  player4,
+} from "./Instruments";
 import Tile from "../components/Tile";
 import ToneEditor from "../components/ToneEditor";
 import useKeyPress from "../hooks/useKeyPress";
@@ -12,10 +21,15 @@ import background_1 from "../background/background_1.jpg";
 import background_2 from "../background/background_2.png";
 import Stack from "@mui/material/Stack";
 import background_3 from "../background/background_3.png";
-import Axios from "axios";
-import apiHeader from "../config";
+import AddSongRoad from "./AddSongRoad";
 
-export default function Road({ roadConfig, setRoadConfig, existedRoad, id }) {
+export default function Road({
+  roadConfig,
+  setRoadConfig,
+  existedRoad,
+  BGM,
+  id,
+}) {
   const navigate = useNavigate();
   const roadLen = roadConfig.length;
   const { height, width } = useWindowDimensions();
@@ -23,16 +37,41 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad, id }) {
   const [direction, setDirection] = useState("right");
   const [roadMute, setRoadMute] = useState(false);
   const [beatMute, setBeatMute] = useState(false);
+  const [currPlayer, setCurrPlayer] = useState();
   const [instrument, setInstrument] = useState("synth1");
 
-  useEffect(() => {
-    player.start(0);
-    player.autostart = true;
-    player.loop = true;
-  }, []);
+  const [openAddSongRoad, setOpenAddSongRoad] = useState(false);
+  const handleOpenAddSongRoad = () => {
+    setOpenAddSongRoad(true);
+  };
+  const handleCloseAddSongRoad = () => {
+    setOpenAddSongRoad(false);
+  };
 
   useEffect(() => {
-    player.mute = beatMute;
+    if (BGM === "breakbeat") {
+      setCurrPlayer(player);
+    } else if (BGM === "handdrum") {
+      setCurrPlayer(player2);
+    } else if (BGM === "Djembe") {
+      setCurrPlayer(player3);
+    } else if (BGM === "conga-rhythm") {
+      setCurrPlayer(player4);
+    }
+  }, [BGM]);
+
+  useEffect(() => {
+    if (currPlayer) {
+      currPlayer.start(0);
+      currPlayer.autostart = true;
+      currPlayer.loop = true;
+    }
+  }, [currPlayer]);
+
+  useEffect(() => {
+    if (currPlayer) {
+      currPlayer.mute = beatMute;
+    }
   }, [beatMute]);
 
   // position on the road
@@ -107,8 +146,8 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad, id }) {
   // Move
   useKeyPress((e) => {
     const myKey = e.key;
-    if (!openToneEditor) {
-      if ((myKey === "ArrowLeft" || myKey === "a") && index > 0) {
+    if (!openToneEditor && !openAddSongRoad) {
+      if (myKey === "ArrowLeft" && index > 0) {
         // move to left
         setIndex(index - 1);
         e.preventDefault();
@@ -118,7 +157,11 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad, id }) {
         setTimeout(() => {
           setIsMove(false);
         }, 300);
+<<<<<<< HEAD
       } else if ((myKey === "ArrowRight" || myKey === "d") && index < roadLen) {
+=======
+      } else if (myKey === "ArrowRight" && index < roadLen - 1) {
+>>>>>>> 71f4f8f19bc77d1214eb09e4d5487dfc02522ae1
         // move to right
         setIndex(index + 1);
         e.preventDefault();
@@ -142,6 +185,7 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad, id }) {
     }
   });
 
+  /*
   const handleAddNewRoad = () => {
     const newRoad = {
       author: "newUser",
@@ -158,6 +202,7 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad, id }) {
       navigate("/");
     });
   };
+  */
 
   return (
     <div
@@ -212,7 +257,7 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad, id }) {
                   }}
                 >
                   <div style={{ padding: "15px" }}>
-                    Use arrows or "A"/"D" to move left or right
+                    Use arrows to move left or right
                     <br />
                     Press "enter" to add music notes
                   </div>
@@ -227,7 +272,8 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad, id }) {
                     cursor: "pointer",
                   }}
                   onClick={() => {
-                    player.mute = true;
+                    if (currPlayer) currPlayer.mute = true;
+
                     navigate("/");
                   }}
                 >
@@ -252,7 +298,7 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad, id }) {
                     marginTop: "10px",
                     cursor: "pointer",
                   }}
-                  onClick={handleAddNewRoad}
+                  onClick={handleOpenAddSongRoad}
                 >
                   <div
                     style={{
@@ -408,6 +454,13 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad, id }) {
           />
         </div>
       </div>
+      <AddSongRoad
+        openAddSongRoad={openAddSongRoad}
+        handleCloseAddSongRoad={handleCloseAddSongRoad}
+        roadConfig={roadConfig}
+        instrument={instrument}
+        id={id}
+      />
     </div>
   );
 }
