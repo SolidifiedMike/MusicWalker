@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Axios from "axios";
 
 import CreateSongRoad from "../components/CreateSongRoad";
 import JoinSongRoad from "../components/JoinSongRoad";
@@ -9,16 +10,31 @@ import { useNavigate } from "react-router-dom";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 
 import background_1 from "../background/background_1.jpg";
+import apiHeader from "../config";
 
 export default function MainPage() {
   const { height, width } = useWindowDimensions();
 
   const [index, setIndex] = useState(0);
   const [move, setMove] = useState(false);
+  const [rooms, setRooms] = useState([]);
   const [imgPath, setImgPath] = useState("/sprite/right_stand.gif");
   const navigate = useNavigate();
 
-  const roads = [1, 1, 1, 1, 1, 1, 1, 1];
+  useEffect(() => {
+    Axios({
+      method: "GET",
+      url: `${apiHeader}`,
+    })
+      .then((res) => {
+        // console.log(res.data.data);
+        // rooms = res.data.data;
+        setRooms(res.data.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
 
   const [openCreateSongRoad, setOpenCreateSongRoad] = useState(false);
   const handleOpenCreateSongRoad = () => {
@@ -49,7 +65,7 @@ export default function MainPage() {
       }, 300);
     }
 
-    if ((myKey === "ArrowDown" || myKey === "s") && index < roads.length - 1) {
+    if ((myKey === "ArrowDown" || myKey === "s") && index < rooms.length - 1) {
       // move down
       setIndex(index + 1);
       e.preventDefault();
@@ -174,8 +190,14 @@ export default function MainPage() {
               flexShrink: "0",
             }}
           />
-          {roads.map((_, i) => {
-            return <VerticalTile isActive={index === i} />;
+          {rooms.map((room, i) => {
+            return (
+              <VerticalTile
+                isActive={index === i}
+                roomName={room.roomName}
+                author={room.author}
+              />
+            );
           })}
           <div
             style={{
