@@ -6,12 +6,14 @@ import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import useKeyPress from "../hooks/useKeyPress";
 import useWindowDimensions from "../hooks/useWindowDimensions";
+import { useNavigate } from "react-router-dom";
 
 import background_1 from "../background/background_1.jpg";
 import background_2 from "../background/background_2.png";
 import background_3 from "../background/background_3.png";
 
 export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
+  const navigate = useNavigate();
   const roadLen = roadConfig.length;
   const { height, width } = useWindowDimensions();
   const [isMove, setIsMove] = useState(false);
@@ -83,7 +85,7 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
         }, 300);
       }
     }
-    if (myKey === "Enter") {
+    if (myKey === "Enter" && index != 0) {
       if (!openToneEditor) {
         handleOpenToneEditor();
       }
@@ -119,6 +121,47 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
             transition: "linear 200ms",
           }}
         >
+          <div
+            style={{
+              width: "350px",
+              // height: '300px',s
+              paddingLeft: 25,
+              paddingRight: 25,
+              paddingTop: 10,
+              position: "fixed",
+            }}
+          >
+            <div
+              style={{
+                fontSize: "20px",
+                backgroundColor: "white",
+                borderRadius: "20px",
+              }}
+            >
+              <div style={{ padding: "15px" }}>
+                Use arrows or "A"/"D" to move left or right
+                <br />
+                Press "enter" to add music notes
+              </div>
+            </div>
+
+            <div
+              style={{
+                fontSize: "20px",
+                backgroundColor: "#1A7FF3",
+                borderRadius: "20px",
+                marginTop: "15px",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              <div style={{ color: "white", padding: "15px" }}>
+                Return to the main page
+              </div>
+            </div>
+          </div>
           <div
             style={{
               margin: "0 auto",

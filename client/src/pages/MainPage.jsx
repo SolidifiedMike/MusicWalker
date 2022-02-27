@@ -111,6 +111,7 @@ export default function MainPage() {
             backgroundColor: "#1A7FF3",
             borderRadius: "20px",
             marginTop: "40px",
+            cursor: "pointer",
           }}
           onClick={() => {
             handleOpenCreateSongRoad();
@@ -127,6 +128,7 @@ export default function MainPage() {
             backgroundColor: "#1A7FF3",
             borderRadius: "20px",
             marginTop: "10px",
+            cursor: "pointer",
           }}
           onClick={() => {
             handleOpenJoinSongRoad();
