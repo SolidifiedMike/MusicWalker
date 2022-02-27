@@ -141,7 +141,13 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
         <br />
         {existedRoad.map((existedRoad) => (
           <div key={existedRoad["author"]}>
-            <div style={{ marginLeft: width / 2 - 100 }}>
+            <div
+              style={{
+                transform: `translate3d(${-index * 100}px, 0, 0)`,
+                transition: "ease 200ms",
+                marginLeft: width / 2 - 100,
+              }}
+            >
               {existedRoad["author"]}
             </div>
             <div
