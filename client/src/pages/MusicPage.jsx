@@ -81,18 +81,10 @@ export default function MusicPage() {
   ];
   const [roadConfig, setRoadConfig] = useState(roadConfigDefault);
   return (
-    <div>
-      <div
-        style={{
-          marginTop: height / 4,
-        }}
-      >
-        <Road
-          roadConfig={roadConfig}
-          setRoadConfig={setRoadConfig}
-          existedRoad={existedRoad}
-        />
-      </div>
-    </div>
+    <Road
+      roadConfig={roadConfig}
+      setRoadConfig={setRoadConfig}
+      existedRoad={existedRoad}
+    />
   );
 }
