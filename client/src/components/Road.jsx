@@ -21,9 +21,17 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
   const [direction, setDirection] = useState("right");
   const [roadMute, setRoadMute] = useState(false);
   const [beatMute, setBeatMute] = useState(false);
-  player.mute = beatMute;
-  player.loop = true;
-  player.autostart = true;
+
+  useEffect(() => {
+    player.start(0);
+    player.autostart = true;
+    player.loop = true;
+  }, []);
+
+  useEffect(() => {
+    player.mute = beatMute;
+  }, [beatMute]);
+
   // position on the road
   const [index, setIndex] = useState(0);
 
