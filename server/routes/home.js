@@ -55,7 +55,14 @@ module.exports = function (router) {
       } else {
         const body = req.body;
         const road = body.road;
-        targetRoom.roads.push(road);
+        const author = body.author;
+        const instrument = body.instrument;
+        const newRoad = {
+          author,
+          instrument,
+          road,
+        };
+        targetRoom.roads.push(newRoad);
         const mres = await targetRoom.save();
         res.status(201).json({ message: "Road added to the room", data: mres });
       }
