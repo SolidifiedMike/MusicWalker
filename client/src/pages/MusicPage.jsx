@@ -1,11 +1,8 @@
 import React from "react";
 import Road from "../components/Road";
-import useWindowDimensions from "../hooks/useWindowDimensions";
 import { useState } from "react";
 
 export default function MusicPage() {
-  const { height, width } = useWindowDimensions();
-
   // MockData
   const existedRoad = [
     {
