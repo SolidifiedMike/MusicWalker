@@ -35,10 +35,25 @@ export const sampler1 = new Tone.Sampler({
   baseUrl: "https://tonejs.github.io/audio/berklee/",
 }).toDestination();
 
+export const sampler2 = new Tone.Sampler({
+  urls: {
+    A1: "Analogsynth_octaves_highmid.mp3",
+  },
+  baseUrl: "https://tonejs.github.io/audio/berklee/",
+}).toDestination();
+
 export const player = new Tone.Player(
   "https://tonejs.github.io/audio/drum-samples/breakbeat.mp3"
 ).toDestination();
 
 export const player2 = new Tone.Player(
   "https://tonejs.github.io/audio/drum-samples/handdrum-loop.mp3"
+).toDestination();
+
+export const player3 = new Tone.Player(
+  "https://tonejs.github.io/audio/drum-samples/Djembe.mp3"
+).toDestination();
+
+export const player4 = new Tone.Player(
+  "https://tonejs.github.io/audio/drum-samples/conga-rhythm.mp3"
 ).toDestination();

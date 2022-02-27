@@ -16,6 +16,7 @@ import background_3 from "../background/background_3.png";
 
 export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
   const navigate = useNavigate();
+  console.log(roadConfig);
   const roadLen = roadConfig.length;
   const { height, width } = useWindowDimensions();
   const [isMove, setIsMove] = useState(false);
@@ -129,7 +130,7 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
               // height: '300px',s
               paddingLeft: 25,
               paddingRight: 25,
-              paddingTop: 50,
+              paddingTop: 10,
               position: "fixed",
             }}
           >
@@ -172,47 +173,16 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
                 fontSize: "20px",
                 backgroundColor: "#1A7FF3",
                 borderRadius: "20px",
-                marginTop: "10px",
+                marginTop: "15px",
                 cursor: "pointer",
               }}
               onClick={() => {
+                player.mute = true;
                 navigate("/");
               }}
             >
-              <div
-                style={{
-                  color: "white",
-                  paddingTop: "10px",
-                  paddingBottom: "10px",
-                  paddingLeft: "15px",
-                  paddingright: "15px",
-                  cursor: "pointer",
-                }}
-              >
+              <div style={{ color: "white", padding: "15px" }}>
                 Return to the main page
-              </div>
-            </div>
-
-            <div
-              style={{
-                fontSize: "20px",
-                backgroundColor: "#1A7FF3",
-                borderRadius: "20px",
-                marginTop: "10px",
-                cursor: "pointer",
-              }}
-            >
-              <div
-                style={{
-                  color: "white",
-                  paddingTop: "10px",
-                  paddingBottom: "10px",
-                  paddingLeft: "15px",
-                  paddingright: "15px",
-                  cursor: "pointer",
-                }}
-              >
-                Submit your road!
               </div>
             </div>
           </div>
