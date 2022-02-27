@@ -127,7 +127,7 @@ export default function Road({ roadConfig, setRoadConfig, existedRoad }) {
               // height: '300px',s
               paddingLeft: 25,
               paddingRight: 25,
-              paddingTop: 10,
+              paddingTop: 50,
               position: "fixed",
             }}
           >
